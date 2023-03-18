@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import br.com.niva.dao.ClienteDaoMock;
 import br.com.niva.dao.IClienteDAO;
+import br.com.niva.dao.exceptions.TipoChaveNaoEncontradaException;
 import br.com.niva.domain.Cliente;
 import br.com.niva.services.ClienteService;
 import br.com.niva.services.IClienteService;
@@ -31,7 +32,6 @@ public class ClienteServiceTest {
 		cliente.setEstado("PE");
 		cliente.setNumero(10);
 		cliente.setTel(81994685930L);
-		clienteService.salvar(cliente);
 	}
 
 	@Test
@@ -43,7 +43,7 @@ public class ClienteServiceTest {
 	}
 	
 	@Test
-	public void salvarCliente() {
+	public void salvarCliente() throws TipoChaveNaoEncontradaException {
 		Boolean retorno = clienteService.salvar(cliente);
 		
 		Assert.assertTrue(retorno);
@@ -54,4 +54,11 @@ public class ClienteServiceTest {
 		clienteService.excluir(cliente.getCpf());
 	}
 	
+	@Test
+	public void alterarCliente() throws TipoChaveNaoEncontradaException {
+		cliente.setNome("Nivaldo Ferreira");
+		clienteService.alterar(cliente);
+		
+		Assert.assertEquals("Nivaldo Ferreira",cliente.getNome());
+	}
 }

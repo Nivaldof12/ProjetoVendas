@@ -1,25 +1,23 @@
 package br.com.niva.dao;
 
+import br.com.niva.dao.generics.GenericDAO;
 import br.com.niva.domain.Cliente;
 
-public class ClienteDAO implements IClienteDAO {
+public class ClienteDAO extends GenericDAO<Cliente> implements IClienteDAO {
 
-	@Override
-	public Boolean salvar(Cliente cliente) {
-		// TODO Auto-generated method stub
-		return true;
+	public ClienteDAO() {
+		super();
 	}
 
 	@Override
-	public Cliente buscarPorCPF(Long cpf) {
+	public Class<Cliente> getTipoClasse() {
 		// TODO Auto-generated method stub
-		return null;
+		return Cliente.class;
 	}
 
 	@Override
-	public void excluir(Long cpf) {
+	public void atualiarDados(Cliente entity, Cliente entityCadastrado) {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

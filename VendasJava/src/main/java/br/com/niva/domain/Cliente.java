@@ -1,6 +1,6 @@
 package br.com.niva.domain;
 
-public class Cliente {
+public class Cliente implements Persistente {
 
 	private String nome;
 	private Long cpf;
