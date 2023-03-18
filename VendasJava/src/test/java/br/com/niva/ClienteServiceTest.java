@@ -1,6 +1,7 @@
 package br.com.niva;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import br.com.niva.dao.ClienteDaoMock;
@@ -9,18 +10,20 @@ import br.com.niva.domain.Cliente;
 import br.com.niva.services.ClienteService;
 import br.com.niva.services.IClienteService;
 
-public class ClienteTest {
+public class ClienteServiceTest {
 	
 	private IClienteService clienteService;
 	
-	public ClienteTest() {
+	private Cliente cliente;
+	
+	public ClienteServiceTest() {
 		IClienteDAO dao = new ClienteDaoMock();
 		clienteService = new ClienteService(dao);
 	}
-
-	@Test
-	public void pesquisarCliente() {
-		Cliente cliente = new Cliente();
+	
+	@Before
+	public void init() {
+		cliente = new Cliente();
 		cliente.setNome("Nivaldo");
 		cliente.setCpf(12312312312L);
 		cliente.setCidade("Caruaru");
@@ -28,11 +31,27 @@ public class ClienteTest {
 		cliente.setEstado("PE");
 		cliente.setNumero(10);
 		cliente.setTel(81994685930L);
-		
 		clienteService.salvar(cliente);
+	}
+
+	@Test
+	public void pesquisarCliente() {
 		
 		Cliente clienteConsultado = clienteService.buscarPorCPF(cliente.getCpf());
 		
 		Assert.assertNotNull(clienteConsultado);
 	}
+	
+	@Test
+	public void salvarCliente() {
+		Boolean retorno = clienteService.salvar(cliente);
+		
+		Assert.assertTrue(retorno);
+	}
+	
+	@Test
+	public void excluirCliente() {
+		clienteService.excluir(cliente.getCpf());
+	}
+	
 }
